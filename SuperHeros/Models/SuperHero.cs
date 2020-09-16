@@ -11,10 +11,11 @@ namespace SuperHeros.Models
         //porperties for the object
         //will represent table in database
         [Key]
-        public string name { get; set; }
-        public string alterEgo { get; set; }
-        public string primaryAbility { get; set; }
-        public string secondaryAbility { get; set; }
-        public string catchPhrase { get; set; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string AlterEgo { get; set; }
+        public string PrimaryAbility { get; set; }
+        public string SecondaryAbility { get; set; }
+        public string CatchPhrase { get; set; }
     }
 }

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Internal;
 using SuperHeros.Data;
 using SuperHeros.Models;
 
@@ -19,7 +20,8 @@ namespace SuperHeros.Controllers
         // GET: SuperController
         public ActionResult Index()
         {
-            return View();
+            // query for all the superhereos from the DB
+            return View(db.SuperHeros);
         }
 
         // GET: SuperController/Details/5
@@ -32,6 +34,7 @@ namespace SuperHeros.Controllers
         public ActionResult Create()
         {
             SuperHero hero = new SuperHero();
+
             return View(hero);
         }
 
@@ -55,6 +58,7 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Edit/5
         public ActionResult Edit(int id)
         {
+            //
             return View();
         }
 
