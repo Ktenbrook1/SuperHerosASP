@@ -27,7 +27,7 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Details/5
         public ActionResult Details(int id)
         {
-            var superHeroChoice = db.SuperHeros.Where(s => s.Id == id).FirstOrDefault();
+            var superHeroChoice = db.SuperHeros.Where(s => s.Id == id).SingleOrDefault();
             return View(superHeroChoice);
         }
 
@@ -59,8 +59,8 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Edit/5
         public ActionResult Edit(int id)
         {
-            //
-            return View();
+            var superHeroChoice = db.SuperHeros.Where(s => s.Id == id).SingleOrDefault();
+            return View(superHeroChoice);
         }
 
         // POST: SuperController/Edit/5
@@ -70,6 +70,7 @@ namespace SuperHeros.Controllers
         {
             try
             {
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -81,16 +82,19 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Delete/5
         public ActionResult Delete(int id)
         {
-            return View();
+            var superHeroChoice = db.SuperHeros.Where(s => s.Id == id).SingleOrDefault();
+            return View(superHeroChoice);
         }
 
         // POST: SuperController/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
+        public ActionResult Delete(SuperHero hero)
         {
             try
             {
+                db.SuperHeros.Remove(hero);
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
