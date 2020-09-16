@@ -4,11 +4,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using SuperHeros.Data;
+using SuperHeros.Models;
 
 namespace SuperHeros.Controllers
 {
     public class SuperController : Controller
     {
+        ApplicationDbContext db;
+        public SuperController(ApplicationDbContext context)
+        {
+            db = context;
+        }
         // GET: SuperController
         public ActionResult Index()
         {
@@ -24,16 +31,19 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Create
         public ActionResult Create()
         {
-            return View();
+            SuperHero hero = new SuperHero();
+            return View(hero);
         }
 
         // POST: SuperController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(SuperHero hero)
         {
             try
             {
+                db.SuperHeros.Add(hero);
+                db.SaveChanges();
                 return RedirectToAction(nameof(Index));
             }
             catch
