@@ -27,7 +27,8 @@ namespace SuperHeros.Controllers
         // GET: SuperController/Details/5
         public ActionResult Details(int id)
         {
-            return View();
+            var superHeroChoice = db.SuperHeros.Where(s => s.Id == id).FirstOrDefault();
+            return View(superHeroChoice);
         }
 
         // GET: SuperController/Create
